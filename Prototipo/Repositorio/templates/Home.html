@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/Home.css' %}">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="lateral">
+        <img class="lateral_avatar" src="{{usuario.user_image.url}}" alt="avatar">
+        <p class="lateral_name">{{usuario.user_name}}</p>
+        <span class="lateral_codigo"><p class="code">{{sala.canal_code}}</p></span>
+        <div class="lateral_exit" >
+            <a class="direccion_salir" href="{% url 'Repositorio:Login'%}">SALIR</a>
+        </div>
+    </div>
+
+    <div class="people">
+        <div class="title_group"><p class="title">GRUPO DE LA UNIVERSIDAD</p></div>
+        
+        <div class="integrantes">
+            {% comment %} <div class="card">
+
+                <img class="card_perfil" src="./ok.jpg" alt="persona1">
+                <p class="card_name">ANAYELI</p>
+
+                
+            </div> {% endcomment %}
+
+            {% for participante in miembros %}
+            <div class="card">
+                <img class="card_perfil" src="{{participante.user_image.url}}" alt="persona1">
+                <p class="card_name">{{participante.user_name}}</p>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+
+    <div class="chat">
+        <div class="content_messages">
+
+            {% comment %} <div class="tus_mensajes">
+			    <small class="chat_user">anayeli</small>
+			    <p class="chat_texto_left">Hola ¿Como estas?</p>
+			    <small class="chat_fecha_left">12:12pm</small>
+		    </div>
+
+            <div class="mis_mensajes">
+			    <small class="chat_user_right">claudia</small>
+			    <p class="chat_texto_right">Hola, bien gracias</p>
+			    <small class="chat_fecha_right">12:13pm</small>
+		    </div> {% endcomment %}
+
+            {% for mensaje in messages %}
+            <div class="{% if mensaje.ms_user == usuario.user_name %} mis_mensajes {% else %} tus_mensajes{% endif %}">
+			    <small class="chat_user">{{mensaje.ms_user}}</small>
+			    <p class="chat_texto">{{mensaje.ms_text}}</p>
+			    <small class="chat_fecha">{{mensaje.tiempo}}</small>
+		    </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="send_messages">
+            <form id="post-form">
+                {% csrf_token %}
+                <input type="hidden" name="username" id="username" value="{{usuario.user_name}}"/>
+                <input type="hidden" name="room_id" id="room_id" value="{{sala.canal_code}}"/>                    <input type="text"   name="message" id="message" class="chat_text">
+                <input type="submit" class="chat_send" value=">"> 
+            </form>
+        </div>
+    </div>
+
+    <div class="options">
+        <div class="content">
+            <div class="b_content"><a href="{% url 'Repositorio:archivos' usuario.id sala.canal_code %}">MOSTRAR ARCHIVOS</a></div>
+            <div class="b_content"><a href="{% url 'Repositorio:mis_archivos' usuario.id sala.canal_code %}">MIS ARCHIVOS</a></div>
+            <div class="b_content"><a href="{% url 'Repositorio:subir' usuario.id sala.canal_code %}">SUBIR ARCHIVO</a></div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+      e.preventDefault();
+  
+      $.ajax({
+        type:'POST',
+        url:'/send',
+        data:{
+            username:$('#username').val(),
+            room_id:$('#room_id').val(),
+            message:$('#message').val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data){
+            //alert(data)
+         }
+       });
+      document.getElementById('message').value = ''
+  });
+  </script>
+</html>

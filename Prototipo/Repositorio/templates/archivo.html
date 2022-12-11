@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivo</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/archivo1.css'%}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div class="lateral">
+		<img src="" alt="">
+	</div>
+
+    <div class="visor">
+        <div class="retroceder">
+			<a href="javascript:history.back()">Atras</a>
+		</div>
+        <iframe src="{{post.archivo.url}}" frameborder="0"></iframe>
+    </div>
+
+    <div class="details">
+        <div class="header">
+            <h2>{{post.titulo}}</h2>
+            <p>Autor: {{post.usuario.user_name}}</p>
+            <small>{{post.tiempo}}</small>
+        </div>
+
+        <div class="body">
+            <div class="descripcion">
+                <h3>Descripcion:</h3>
+                <p> {{post.descripcion}}</p>
+
+            </div>
+
+            <div class="detalles">
+                <label for="tipo">Tipo:</label>
+                <p class="tipo">{{post.tipo}}</p>
+
+                <label for="cate">Categoria:</label>
+                <p class="cate">{{post.categoria}}</p>
+            </div>
+            <div class="corazon">
+                <div class="heart-btn" id="heart-btn">
+                    <div class="content">
+                      <span class="heart"></span>
+                      <!-- <span class="text">Like</span> -->
+                      <span class="numb"></span>
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+            
+        <div class="comments">
+                <div class="contenedor">
+                    {% for comentario in comentarios%}
+                    <div class="mis_mensajes">
+                        <small class="chat_user_right">{{comentario.cm_user}}</small>
+                        <p class="chat_texto_right">{{comentario.cm_texto}}</p>
+                        <small class="chat_fecha_right">{{comentario.tiempo}}</small>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div class="send_messages">
+                    <form id="post-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" id="username" value="{{usuario_main}}"/>
+                        <input type="hidden" name="post_id" id="post_id" value="{{post.id}}"/> 
+                        <input type="text" name="message" id="message" class="chat_text">
+                        <input type="submit" class="chat_send" value=">"> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+          $('.content').click(function(){
+            $('.content').toggleClass("heart-active")
+            $('.text').toggleClass("heart-active")
+            $('.numb').toggleClass("heart-active")
+            $('.heart').toggleClass("heart-active")
+          });
+        });
+      </script>
+    
+    <script type="text/javascript">
+        $(document).on('submit','#post-form',function(e){
+          e.preventDefault();
+      
+          $.ajax({
+            type:'POST',
+            url:'/send2',
+            data:{
+                post_id:$('#post_id').val(),
+                username:$('#username').val(),
+                message:$('#message').val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                //alert(data)
+             }
+           });
+          document.getElementById('message').value = ''
+      });
+    </script>
+</body>
+</html>

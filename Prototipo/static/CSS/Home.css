@@ -1,0 +1,342 @@
+:root{
+    --color-black: #1C1C1C;
+    --color-white: #f7f7f7;
+    --color-white-2: #E4DDDC;
+    --color-dark-1: #00758F;
+    --color-dark-2: #025377;
+    --color-middle-1: #0096B8;
+    --color-middle-2: #0271A1;
+    --color-light-1: #00B7E0;
+    --color-light-2: #028ECA;
+}
+
+html{
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--color-white);
+}
+
+/*espacio lateral*/
+.lateral{
+    background-color: var(--color-dark-2);
+    position: absolute;
+    width: 260px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px 50px 0px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lateral_avatar{
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    left: 40px;
+    top: 32px;
+    border-radius: 50%;
+}
+
+.lateral_name{
+    position: absolute;
+    font-size: 40px;
+    color: var(--color-white);
+    top: 200px;
+    left: auto;
+    align-self: center;
+}
+
+.lateral_codigo{
+    position: absolute;
+    top: 80%;
+    width: 140px;
+    height: 45px;
+    border-radius: 20px;
+    background-color: var(--color-dark-1);
+    align-self: center;
+    text-align: center;
+    
+}
+.code{
+    color: var(--color-white);
+    font-size: 20px;
+}
+
+.lateral_exit{
+    position: absolute;
+    top: 90%;
+    width: 140px;
+    height: 45px;
+    border-radius: 20px;
+    background-color: var(--color-dark-1);
+    align-self: center;
+    cursor: pointer;
+}
+
+a{
+    position: relative;
+    top: 25%;
+    left: 25%;
+    text-decoration: none;
+    font-style: none;
+    font-size: 20px;
+    color: var(--color-white);
+}
+
+.lateral_exit:hover{
+    background-color: var(--color-middle-1);
+}
+
+/*Para las personas*/
+.people{
+    background-color: var(--color-white);
+    width: fill;
+    height: 55%;
+    position: absolute;
+    left: 260px;
+    padding: 0px;
+}
+
+.title_group{
+    position: absolute;
+    background-color:var(--color-dark-2);
+    top: 38px;
+    border-radius: 0 20px 20px 0;
+    width:max-content;
+    padding-right: 20px;
+}
+
+.title{
+    color: var(--color-white);
+    font-size: 20px;
+}
+
+.integrantes{
+    position: relative;
+    top: 100px;
+    left: 0;
+    height: 310px;
+    width: 1200px;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: proximity;
+    overscroll-behavior-x: contain;
+}
+
+.integrantes::-webkit-scrollbar{
+    height: 5px;
+}
+
+.integrantes::-webkit-scrollbar-thumb{
+    background: var(--color-dark-2);
+    border-radius: 15px;
+}
+
+.card{
+    background-color: var(--color-dark-1);
+    position: relative;
+    min-width: 210px;
+    height: 260px;
+    margin-top: 20px;
+    margin-left: 50px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card_perfil{
+    position: absolute;
+    width: 210px;
+    height: 210px;
+}
+
+.card_name{
+    font-size: 20px;
+    position: absolute;
+    top: 200px;
+    left: 100px;
+    color: var(--color-white);
+}
+
+hr{
+    width: 90%;
+    position:absolute;
+    bottom: 10px;
+    left: 5%;
+    background: var(--color-dark-2);
+    height: 2px;
+    border-style: none;
+}
+
+/*para el chat*/
+
+.chat{
+    height: 40%;
+    width: 800px;
+    position: absolute;
+    left: 280px;
+    bottom: 15px;
+    background-color:var(--color-white-2);
+    border-radius: 20px;
+}
+
+.content_messages{
+    position: relative;
+    width: 800px;
+    height: calc(80%);
+    padding: 3px;
+    top: 0;
+    overflow-y: auto;
+    margin: 3px;
+}
+
+.tus_mensajes{
+    /* position: absolute;
+    left: 5px; */
+    background: var(--color-dark-1);
+    color: var(--color-white);
+    margin-left: 10px;
+    margin-bottom: 5px;
+    border-bottom-right-radius: 16px;
+	border-top-left-radius: 16px;
+	border-top-right-radius: 16px;
+    height: max-content;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    padding-left: 10px;
+
+}
+
+.tus_mensajes > .chat_user{
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.tus_mensajes > .chat_fecha{
+    opacity: 0.6;
+}
+
+.tus_mensajes > .chat_texto{
+    margin: 3px;
+    font-size: 17px;
+    align-self: flex-end;
+}
+
+.mis_mensajes{
+    /* position: absolute;
+    right: 5px; */
+    background: var(--color-dark-2);
+    color: var(--color-white);
+    margin-left: 55%;
+    margin-bottom: 5px;
+    border-bottom-left-radius: 16px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    height: max-content;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    padding-right: 10px;
+}
+
+.mis_mensajes > .chat_user{
+    font-style: italic;
+    align-self: flex-end;
+    opacity: 0.6;
+}
+
+.mis_mensajes > .chat_fecha{
+    align-self: flex-end;
+    opacity: 0.6;
+}
+
+.mis_mensajes > .chat_texto{
+    margin: 3px;
+    font-size: 17px;
+}
+
+.send_messages{
+    position: relative;
+    width: 800px;
+    height: 20%;
+    bottom: 10px;
+}
+
+.chat_text{
+    position: absolute;
+    height: 30px;
+    width: 80%;
+    left: 2%;
+    bottom: 10px;
+    border-radius: 20px;
+    border-color: var(--color-dark-2);
+}
+
+.chat_send{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    left: 85%;
+    bottom: 10px;
+    border-radius: 50%;
+    border-style: none;
+    background-color:var(--color-dark-2);
+    color: var(--color-white);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+/* para opciones*/
+.options{
+    width: 300px;
+    height: 40%;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background-color: var(--color-white);
+    border-radius: 20px;
+}
+
+.content{
+    width: 300px;
+    height: 90%;
+    position: absolute;
+    bottom: 0px;
+    border-radius: 20px;
+    background-color: var(--color-dark-2);
+    display: flex;
+    flex-direction: column;
+}
+
+.b_content{
+    width: 140px;
+    height: 45px;
+    border-radius: 20px;
+    background-color: var(--color-dark-1);
+    align-self: center;
+    color: var(--color-white);
+    border: none;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+}
+
+.b_content > a{
+    font-size: 15px;
+    position: relative;
+    top: 25%;
+    left: 10px;
+    text-decoration: none;
+    font-style: none;
+    color: var(--color-white);
+    text-align: center;
+    align-self: center;
+}
+
+.b_content:hover{
+    background-color: var(--color-middle-1);
+}
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mostrar Archivos</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'CSS/mostrar_archivos.css'%}">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+	
+	<div class="lateral">
+		<img src="" alt="">
+	</div>
+
+	<div class="arriba">
+		<form class="container" id="lupa" action="{%url 'Repositorio:resultados' %}" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="username_id" value="{{username_id}}"/>
+			<input type="hidden" name="code" value="{{code}}"/>
+			<input type="c_text" name="palabra" placeholder="Buscar">
+			<div class="btn">
+				<i class="fa fa-search"></i>
+			</div>
+		</form>
+
+		<div class="retroceder">
+			<a href="{%url 'Repositorio:home' username_id code %}">Atras</a>
+		
+
+			{% comment %} <form method="post" action="{% url 'Repositorio:archivo_post' %}">
+            {% csrf_token %}
+
+            	<input type="hidden" name="id_post" value="1"/>
+            	<input type="submit" class="btn btn-primary" type="button" value="Ver">
+        	</form> {% endcomment %}
+		</div>
+	</div>
+
+	<div class="articulos">
+
+		{%for elemento in archivos%}
+
+		<div class="card">
+
+			<div class="card-image">
+				<object class="pdf" data="{{elemento.archivo.url}}" type="application/pdf" width="300px" height="230px"></object>
+				{% comment %} <object class="pdf" data="/media/pdfs/Proyecto.pdf" type="application/pdf" width="300px" height="230px"></object> {% endcomment %}
+				{% comment %} <embed class="pdf" src="{{elemento.archivo.url}}" type="application/pdf" width="300px" height="230px" /> {% endcomment %}
+				{% comment %} <iframe src="{{elemento.archivo.url}}" frameborder="0"></iframe> {% endcomment %}
+				{% comment %} <iframe src="{%url 'Repositorio:archivo_post'%}", frameborder="0"></iframe> {% endcomment %}
+			</div>
+
+			<div class="card-text">
+				<span class="date">{{elemento.tiempo}}</span>
+				<h2>{{elemento.titulo}}</h2>
+				<p> <b>Autor: {{elemento.usuario.user_name}}</b> <br> {{elemento.descripcion}}</p>
+			</div>
+			
+			<div class="card-stats">
+				<div class="stat">
+					<div class="value">Tipo:</div>
+					<div class="value">{{elemento.tipo}}</div>
+				</div>
+			
+				<div class="stat border">
+					<div class="value">{{elemento.comments}}</div>
+					<div class="type">comentarios</div>
+				</div>
+			
+				<div class="stat">
+					<div class="value">{{elemento.vistas}}</div>
+					<a href="{%url 'Repositorio:archivo_personal' elemento.id username_id%}" class="redireccionar">Ver</a>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		
+	</div>
+
+	<script>
+		$(document).ready(function(){
+		  $('.content').click(function(){
+			$('.content').toggleClass("heart-active")
+			$('.text').toggleClass("heart-active")
+			$('.numb').toggleClass("heart-active")
+			$('.heart').toggleClass("heart-active")
+		  });
+		  
+		});
+	</script>
+</body>
+</html>

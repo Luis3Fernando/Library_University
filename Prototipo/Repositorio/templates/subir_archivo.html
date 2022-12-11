@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/subir_archivo.css'%}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>    
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <form action="{% url 'Repositorio:checkview4'%}" method="POST" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>SUBE TU TRABAJO</h1>
+            <div class="form-file">
+                <input type="file" name="pdf" id="pdf" accept=".pdf" required>
+            </div>
+            
+            <p type="Titulo:">
+                <input placeholder="Escribe el titulo..." name="titulo" required></input>
+            </p>
+            <p type="Descripción:">
+                <textarea required name="descripcion" class="descripcion" placeholder="Digite una descripcion breve"></textarea>
+            </p>
+
+            <input type="hidden" name="username_id" value="{{username_id}}">
+            <input type="hidden" name="code" value="{{code}}">
+
+            <p type="Tipo y Categoria">
+                <select name="tipo" class="seleccionar" required>
+                    <option value="Ensayo">Ensayo</option>
+                    <option value="Monografia">Monografia</option>
+                    <option value="Articulo">Articulo</option>
+                </select>
+
+                <select name="categoria" class="seleccionar" required>
+                    <option value="Informática">Informática</option>
+                    <option value="Biología">Biología</option>
+                    <option value="Ciencias_Sociales">Ciencias Sociales</option>
+                    <option value="Quimica">Quimica</option>
+                    <option value="Fisica">Fisica</option>
+                    <option value="Literatura">Literatura</option>
+                    <option value="Matematicas">Matematicas</option>
+                    <option value="Economia">Economia</option>
+                </select>
+            </p>
+            
+
+            <input type="submit" value="SUBIR" class="button"></input>
+          </form>
+    </div>
+    
+
+    <script src="{% static 'JS/block2.js'%}"></script>
+    <script src="{% static 'JS/block2_3.js'%}"></script>
+    <script src="{% static 'JS/block2_2.js'%}"></script>
+    <script src="{% static 'JS/file.js'%}"></script>
+
+        <script type="application/javascript">
+            jQuery('input[type=file]').change(function(){
+             var filename = jQuery(this).val().split('\\').pop();
+             var idname = jQuery(this).attr('id');
+             console.log(jQuery(this));
+             console.log(filename);
+             console.log(idname);
+             jQuery('span.'+idname).next().find('span').html(filename);
+            });
+            </script>
+</body>
+</html>
