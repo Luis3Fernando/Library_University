@@ -1,0 +1,1 @@
+web: gunicorn Prototipo.wsgi --log-file -

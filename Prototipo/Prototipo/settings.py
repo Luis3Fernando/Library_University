@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^&pej_r^w_wtdy)u!3xc$(les3!kx$tgnwt8xw=^6qryfm!0%s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Prototipo.urls'
@@ -146,3 +147,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR /"media"
 MEDIA_URL = "/media/"
+
+STATICFILES_STORAGE = 'whitnoise.storage.CompressedManifestStaticFilesStorage'
